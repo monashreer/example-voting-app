@@ -10,7 +10,7 @@ pipeline{
         stage('build'){
             steps{
                 echo "Building worker app"
-                dir(‘worker'){
+                dir('worker'){
                     sh 'mvn compile'
                 }
                 sleep 5
