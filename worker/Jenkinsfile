@@ -13,19 +13,22 @@ pipeline{
                 dir('worker'){
                     sh 'mvn compile'
                 }
-                sleep 5
             }
         }
         stage('test'){
             steps{
                 echo "Running tests on the build"
-                sleep 3
+                dir('worker'){
+                    sh 'mvn clean test'
+                }
             }
         }
         stage('package'){
             steps{
                 echo "Packagingg..."
-                sleep 1
+                dir('worker'){
+                    sh 'mvn package -DskipTests'
+                }
             }
         }
     }
