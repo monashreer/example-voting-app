@@ -31,7 +31,8 @@ pipeline{
     }
     post{
         always{
-            echo "Told hi to Jeevan, Ajay and Madhuri"
+            echo "Done with the build"
+            archiveArtifacts artifacts: '**/target/*.jar', fingerprint: true
         }
     }
 }
