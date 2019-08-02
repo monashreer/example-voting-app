@@ -1,0 +1,48 @@
+pipeline{
+    agent any
+
+    tools{
+        maven 'Maven 3.6.1'
+    }
+
+    stages{
+        stage('build'){
+            when{
+                changeset "**/worker/**"
+            }
+            steps{
+                echo "Building worker app"
+                dir('worker'){
+                    sh 'mvn compile'
+                }
+            }
+        }
+        stage('test'){
+            when{
+                changeset "**/worker/**"
+            }
+            steps{
+                echo "Running tests on the build"
+                dir('worker'){
+                    sh 'mvn clean test'
+                }
+            }
+        }
+        stage('package'){
+            when{
+                changeset "**/worker/**"
+            }
+            steps{
+                echo "Packagingg..."
+                dir('worker'){
+                    sh 'mvn package -DskipTests'
+                }
+            }
+        }
+    }
+    post{
+        always{
+            echo "Done with the build"
+        }
+    }
+}
