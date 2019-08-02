@@ -44,7 +44,6 @@ pipeline{
     post{
         always{
             echo "Done with the build"
-            archiveArtifacts artifacts: '**/target/*.jar', fingerprint: true
         }
     }
 }
