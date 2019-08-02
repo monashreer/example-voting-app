@@ -12,8 +12,8 @@ pipeline{
             }
             steps{
                 echo "Building worker app"
-                dir('worker'){
-                    sh 'mvn compile'
+                dir('result'){
+                    sh 'npm install'
                 }
             }
         }
@@ -23,19 +23,8 @@ pipeline{
             }
             steps{
                 echo "Running tests on the build"
-                dir('worker'){
-                    sh 'mvn clean test'
-                }
-            }
-        }
-        stage('package'){
-            when{
-                changeset "**/worker/**"
-            }
-            steps{
-                echo "Packagingg..."
-                dir('worker'){
-                    sh 'mvn package -DskipTests'
+                dir('result'){
+                    sh 'npm test'
                 }
             }
         }
